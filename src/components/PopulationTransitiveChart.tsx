@@ -11,7 +11,7 @@ const API_URL =
   "http://localhost:3000/api";
 
 export type PolulationChartDatum = {
-  year: number;
+  year: string;
   value: number;
 };
 
@@ -19,7 +19,7 @@ export default function PopulationTransitiveChart({
   prefs,
 }: PopulationTransitiveChartProps) {
   if (prefs.length === 0) {
-    return <p>no prefs selected</p>;
+    return <p>都道府県が選択されていません</p>;
   }
 
   const queries = useSuspenseQueries({
@@ -54,20 +54,17 @@ export default function PopulationTransitiveChart({
 
   const normalizedData: ChartData<PolulationChartDatum> = queries.map(
     (query) => {
-      console.log(query.data);
       return {
         label: query.data.label,
         data: query.data.data.map((datum) => {
           return {
-            year: datum.year,
+            year: datum.year.toString(),
             value: datum.value,
           };
         }),
       };
     },
   );
-
-  console.log(normalizedData);
 
   return (
     <div>

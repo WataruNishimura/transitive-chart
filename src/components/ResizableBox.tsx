@@ -1,4 +1,6 @@
 import { ResizableBox as ReactResizableBox } from "react-resizable";
+import { useWindowSize } from "../hooks/useWindowSize";
+import { useLayoutEffect, useState } from "react";
 
 type ResizableBoxProps = {
   children: React.ReactNode;
@@ -11,14 +13,28 @@ type ResizableBoxProps = {
 
 export default function ResizableBox({
   children,
-  width = 600,
   height = 300,
   resizable = true,
   style = {},
   className = "",
 }: ResizableBoxProps) {
+  const [size, setSize] = useState([0, 0]);
+
+  useLayoutEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+
+    window.addEventListener("resize", updateSize);
+    updateSize();
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const width = size[0] < 1000 ? size[0] * 0.75 : 750;
+
   return (
-    <div style={{ marginLeft: 20 }}>
+    <div>
       <div
         style={{
           display: "inline-block",

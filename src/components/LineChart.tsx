@@ -17,6 +17,7 @@ export default function LineCharts<T extends Record<string, unknown>>({
   const primaryAxis = useMemo<AxisOptions<T>>(
     () => ({
       getValue: (datum) => datum[Object.keys(datum)[0]],
+      elementType: "line",
     }),
     [],
   );
@@ -25,6 +26,7 @@ export default function LineCharts<T extends Record<string, unknown>>({
     () => [
       {
         getValue: (datum) => datum[Object.keys(datum)[1]],
+        elementType: "line",
       },
     ],
     [],
@@ -37,8 +39,6 @@ export default function LineCharts<T extends Record<string, unknown>>({
           data,
           primaryAxis,
           secondaryAxes,
-          initialHeight: 300,
-          initialWidth: 320,
         }}
       />
     </ResizableBox>
