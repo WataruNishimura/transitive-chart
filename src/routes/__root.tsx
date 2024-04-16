@@ -17,10 +17,10 @@ export const Route = createRootRoute({
         </nav>
       </header>
       <hr />
-      <Suspense fallback={<div>Loading...</div>} >
+      <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
       <TanStackRouterDevtools />
     </>
   ),
-})
+});
