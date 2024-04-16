@@ -1,5 +1,4 @@
 import { ResizableBox as ReactResizableBox } from "react-resizable";
-import { useWindowSize } from "../hooks/useWindowSize";
 import { useLayoutEffect, useState } from "react";
 
 type ResizableBoxProps = {
